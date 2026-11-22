@@ -1,0 +1,15 @@
+{
+  "name": "survey-pilot-ai",
+  "version": "1.2.0",
+  "description": "SurveyPilot AI - synthetic respondent simulator and survey form tester (Chrome MV3 extension).",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test tests/core.test.js tests/storage.test.js tests/content.test.js tests/engine.test.js",
+    "check": "node tests/check-extension.js"
+  },
+  "devDependencies": {
+    "fake-indexeddb": "^6.0.0",
+    "jsdom": "^25.0.0"
+  }
+}

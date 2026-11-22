@@ -1,0 +1,18 @@
+#app { min-height: 100vh; padding: 10px 12px 70px; display: flex; flex-direction: column; gap: 10px; }
+.topbar { display: flex; align-items: center; gap: 8px; }
+.topbar h1 { font-size: 15px; }
+#view { display: flex; flex-direction: column; gap: 10px; }
+.qrow { padding: 8px 0; border-bottom: 1px solid var(--border); } .qrow:last-child { border-bottom: 0; }
+.qrow .t { font-weight: 550; }
+.kv { display: grid; grid-template-columns: 110px 1fr; gap: 3px 10px; font-size: 12px; } .kv .k { color: var(--muted); }
+.respcard { display: flex; gap: 10px; align-items: flex-start; padding: 9px 10px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface); cursor: pointer; transition: border-color .15s, background .15s; }
+.respcard:hover { border-color: var(--accent); } .respcard.sel { background: var(--accent-soft); border-color: var(--accent); }
+.answer-edit { display: flex; flex-direction: column; gap: 4px; padding: 8px 0; border-bottom: 1px solid var(--border); }
+.answer-edit .opt { display: flex; gap: 6px; align-items: center; font-size: 12.5px; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.logline { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11.5px; padding: 2px 0; border-bottom: 1px dashed var(--border); word-break: break-word; }
+.logline.error { color: var(--err); } .logline.warn { color: var(--warn); } .logline.debug { color: var(--muted); }
+.shot { max-width: 100%; border-radius: 8px; border: 1px solid var(--border); }
+.tag-synth { font-size: 10.5px; }
+.sticky-actions { position: sticky; bottom: 0; background: linear-gradient(transparent, var(--bg) 30%); padding-top: 14px; }
+.btn.big { padding: 12px 14px; font-size: 15px; width: 100%; }

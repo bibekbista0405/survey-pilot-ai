@@ -1,0 +1,4 @@
+body { width: 320px; }
+.wrap { padding: 12px; display: flex; flex-direction: column; gap: 10px; }
+.kv { display: grid; grid-template-columns: 90px 1fr; gap: 3px 8px; font-size: 12px; }
+.kv .k { color: var(--muted); }

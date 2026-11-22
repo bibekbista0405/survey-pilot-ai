@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SurveyPilot AI</title>
+  <link rel="stylesheet" href="../assets/theme.css">
+  <link rel="stylesheet" href="sidepanel.css">
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <div class="row grow">
+        <img src="../assets/icon-32.png" width="26" height="26" alt="">
+        <div>
+          <h1>SurveyPilot AI</h1>
+          <div class="small muted">Synthetic respondents for your own test forms</div>
+        </div>
+      </div>
+      <button class="btn icon" id="btn-theme" title="Toggle dark mode" aria-label="Toggle dark mode">◐</button>
+      <button class="btn icon" id="btn-settings" title="Settings" aria-label="Open settings">⚙</button>
+    </header>
+    <div id="banner"></div>
+    <nav class="tabs" role="tablist" id="tabs" aria-label="Sections">
+      <button role="tab" data-view="auto" aria-selected="true">Auto</button>
+      <button role="tab" data-view="survey" aria-selected="false">Survey</button>
+      <button role="tab" data-view="respondents" aria-selected="false">Respondents</button>
+      <button role="tab" data-view="run" aria-selected="false">Run</button>
+      <button role="tab" data-view="logs" aria-selected="false">Logs</button>
+    </nav>
+    <main id="view" aria-live="polite"></main>
+  </div>
+  <div id="toasts" aria-live="assertive"></div>
+  <dialog id="dialog"></dialog>
+
+  <script src="../core/util.js"></script>
+  <script src="../core/survey-parser.js"></script>
+  <script src="../core/respondent-generator.js"></script>
+  <script src="../core/ai-client.js"></script>
+  <script src="../core/answer-generator.js"></script>
+  <script src="../core/storage.js"></script>
+  <script src="../core/statistics.js"></script>
+  <script src="../core/export.js"></script>
+  <script src="sidepanel.js"></script>
+</body>
+</html>

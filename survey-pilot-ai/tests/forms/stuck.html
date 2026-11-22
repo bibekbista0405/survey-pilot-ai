@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Stuck form (test fixture)</title></head>
+<body>
+<h1>Stuck Next fixture</h1>
+<form id="f" novalidate>
+  <section data-section-title="Only page" id="s1">
+    <div><label for="name">Your full name *</label><input id="name" name="name" type="text" required></div>
+    <fieldset><legend>How often do you use the bus? *</legend>
+      <label><input type="radio" name="bus" value="n" required> Never</label>
+      <label><input type="radio" name="bus" value="d"> Every day</label></fieldset>
+    <!-- Next never does anything: simulates a broken form so the runner must time out, not loop. -->
+    <button type="button" id="next">Next</button>
+  </section>
+</form>
+</body></html>

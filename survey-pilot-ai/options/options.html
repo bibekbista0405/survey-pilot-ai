@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SurveyPilot AI – Settings</title>
+  <link rel="stylesheet" href="../assets/theme.css">
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="page">
+    <header class="row">
+      <img src="../assets/icon-48.png" width="36" height="36" alt="">
+      <div><h1>SurveyPilot AI settings</h1><div class="muted">Everything is stored locally in this browser profile.</div></div>
+    </header>
+    <div id="banner"></div>
+    <form id="form" class="stack" autocomplete="off">
+      <section class="card stack">
+        <h2>Generation</h2>
+        <label class="field">Generation mode
+          <select id="mode"><option value="local">Local (offline, no API)</option><option value="ai">AI (Gemini)</option></select>
+          <span class="hint">Local mode always works, even without internet or when Gemini quota is exhausted.</span></label>
+        <label class="switch"><input type="checkbox" id="autoFallback"> If AI fails, fall back to local generation automatically</label>
+        <label class="field">Gemini API key
+          <div class="row"><input type="password" id="apiKey" class="grow" placeholder="AIza…" spellcheck="false" autocomplete="off">
+            <button type="button" class="btn" id="toggle-key">Show</button></div>
+          <span class="hint">Stored in chrome.storage.local on this device only. Never included in logs, exports or backups. <span id="key-state"></span></span></label>
+        <label class="field">Model
+          <div class="row"><select id="modelSelect" class="grow"></select><button type="button" class="btn" id="load-models">Load from Gemini</button></div>
+          <input type="text" id="modelCustom" placeholder="Custom model id (optional)">
+          <span class="hint" id="model-hint">The list below is built in. “Load from Gemini” fetches the models your key can use.</span></label>
+        <div class="grid3">
+          <label class="field">AI retries<input type="number" id="aiRetries" min="0" max="8"></label>
+          <label class="field">AI timeout (s)<input type="number" id="aiTimeoutS" min="5" max="180"></label>
+          <label class="field">Language<select id="language"><option value="en">English</option><option value="es">Español</option><option value="fr">Français</option><option value="de">Deutsch</option></select></label>
+        </div>
+        <div class="row"><button type="button" class="btn" id="test-key">Test API key</button><span id="test-result" class="small"></span></div>
+      </section>
+
+      <section class="card stack">
+        <h2>Defaults and timing</h2>
+        <div class="grid3">
+          <label class="field">Respondent count<input type="number" id="defaultRespondentCount" min="1" max="500"></label>
+          <label class="field">Batch size<input type="number" id="defaultBatchSize" min="1" max="50"></label>
+          <label class="field">Retry limit<input type="number" id="retryLimit" min="0" max="10"></label>
+          <label class="field">Delay between respondents (ms)<input type="number" id="delayBetweenRunsMs" min="0" step="500"></label>
+          <label class="field">Delay between actions (ms)<input type="number" id="delayBetweenActionsMs" min="0" step="50"></label>
+          <label class="field">Navigation timeout (ms)<input type="number" id="navigationTimeoutMs" min="2000" step="500"></label>
+        </div>
+      </section>
+
+      <section class="card stack">
+        <h2>Appearance, data and export</h2>
+        <div class="grid3">
+          <label class="field">Theme<select id="theme"><option value="system">Match system</option><option value="light">Light</option><option value="dark">Dark</option></select></label>
+          <label class="field">Keep logs for (days)<input type="number" id="retentionDays" min="0"><span class="hint">0 keeps everything</span></label>
+          <label class="field">CSV delimiter<select id="csvDelimiter"><option value=",">Comma ,</option><option value=";">Semicolon ;</option><option value="&#9;">Tab</option></select></label>
+        </div>
+        <label class="field">Export file prefix<input type="text" id="exportFilenamePrefix" maxlength="40"></label>
+        <label class="switch"><input type="checkbox" id="exportIncludeProfile"> Include profile columns in respondent CSV exports</label>
+        <label class="switch"><input type="checkbox" id="diagnosticLogging"> Diagnostic logging (log every question)</label>
+        <label class="switch"><input type="checkbox" id="captureScreenshots"> Capture a screenshot when a respondent fails</label>
+      </section>
+
+      <div class="row"><button class="btn primary" type="submit">Save settings</button><span id="saved" class="small"></span></div>
+    </form>
+
+    <section class="card stack">
+      <h2>Backup, restore and reset</h2>
+      <div class="small muted">Backups contain surveys, respondents, runs, logs and settings. The API key is never included.</div>
+      <div class="row wrap">
+        <button class="btn" id="backup">Download backup (JSON)</button>
+        <label class="btn" for="restore-file">Restore from backup…</label>
+        <input type="file" id="restore-file" accept="application/json,.json" class="hidden">
+        <button class="btn danger" id="clear">Clear all data…</button>
+      </div>
+      <div id="data-counts" class="small muted"></div>
+    </section>
+  </div>
+  <div id="toasts" aria-live="assertive"></div>
+  <dialog id="dialog"></dialog>
+
+  <script src="../core/util.js"></script>
+  <script src="../core/ai-client.js"></script>
+  <script src="../core/storage.js"></script>
+  <script src="../core/export.js"></script>
+  <script src="options.js"></script>
+</body>
+</html>

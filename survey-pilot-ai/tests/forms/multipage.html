@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Campus Travel Survey (test form)</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 640px; margin: 24px auto; }
+  .q { margin: 16px 0; }
+  .error { color: #b00020; }
+  [hidden] { display: none; }
+</style>
+</head>
+<body>
+<h1>Campus Travel Survey</h1>
+<p>Local test form for SurveyPilot AI. Nothing is sent anywhere.</p>
+<div id="thanks" class="thank-you" hidden>Thank you for completing the survey. Your response has been recorded.<a href="#again" id="again">Submit another response</a></div>
+<form id="survey" novalidate>
+  <section data-section-title="About you" id="s1">
+    <h2>About you</h2>
+    <div class="q"><label for="name">Your full name *</label><input id="name" name="name" type="text" required></div>
+    <div class="q"><label for="age">What is your age group? *</label>
+      <select id="age" name="age" required>
+        <option value="">Choose</option>
+        <option>Under 18</option><option>18-24</option><option>25-34</option><option>35-44</option><option>45-54</option><option>55-64</option><option>65+</option>
+      </select></div>
+    <fieldset class="q"><legend>What is your gender? *</legend>
+      <label><input type="radio" name="gender" value="f" required> Female</label>
+      <label><input type="radio" name="gender" value="m"> Male</label>
+      <label><input type="radio" name="gender" value="nb"> Non-binary</label>
+      <label><input type="radio" name="gender" value="x"> Prefer not to say</label></fieldset>
+    <fieldset class="q"><legend>Are you currently a student?</legend>
+      <label><input type="radio" name="student" value="yes"> Yes</label>
+      <label><input type="radio" name="student" value="no"> No</label></fieldset>
+    <p class="error" role="alert" hidden></p>
+    <button type="button" id="next1">Next</button>
+  </section>
+
+  <section data-section-title="Travel habits" id="s2" hidden>
+    <h2>Travel habits</h2>
+    <fieldset class="q"><legend>How often do you use the bus? *</legend>
+      <label><input type="radio" name="busfreq" value="never" required> Never</label>
+      <label><input type="radio" name="busfreq" value="rare"> Rarely</label>
+      <label><input type="radio" name="busfreq" value="week"> A few times a week</label>
+      <label><input type="radio" name="busfreq" value="daily"> Every day</label></fieldset>
+    <fieldset class="q"><legend>Which modes of transport do you use? *</legend>
+      <label><input type="checkbox" name="modes" value="bus"> Bus</label>
+      <label><input type="checkbox" name="modes" value="car"> Car</label>
+      <label><input type="checkbox" name="modes" value="bike"> Bicycle</label>
+      <label><input type="checkbox" name="modes" value="walk"> Walking</label></fieldset>
+    <fieldset class="q"><legend>How satisfied are you with your daily travel? *</legend>
+      <label><input type="radio" name="sat" value="1" required> 1</label>
+      <label><input type="radio" name="sat" value="2"> 2</label>
+      <label><input type="radio" name="sat" value="3"> 3</label>
+      <label><input type="radio" name="sat" value="4"> 4</label>
+      <label><input type="radio" name="sat" value="5"> 5</label></fieldset>
+    <div class="q"><label for="comments">Any comments about travelling to campus?</label><textarea id="comments" name="comments"></textarea></div>
+    <p class="error" role="alert" hidden></p>
+    <button type="button" id="back2">Back</button>
+    <button type="button" id="next2">Next</button>
+  </section>
+
+  <section data-section-title="Last details" id="s3" hidden>
+    <h2>Last details</h2>
+    <div class="q"><label for="when">Date of your most recent trip *</label><input id="when" name="when" type="date" required></div>
+    <div class="q"><label for="depart">Usual departure time</label><input id="depart" name="depart" type="time"></div>
+    <fieldset class="q"><legend>Please rate the overall service *</legend>
+      <label><input type="radio" name="rate" value="1" required> 1</label>
+      <label><input type="radio" name="rate" value="2"> 2</label>
+      <label><input type="radio" name="rate" value="3"> 3</label>
+      <label><input type="radio" name="rate" value="4"> 4</label></fieldset>
+    <div class="q"><label for="email">Email (optional)</label><input id="email" name="email" type="email"></div>
+    <p class="error" role="alert" hidden></p>
+    <button type="button" id="back3">Back</button>
+    <button type="submit" id="submit">Submit</button>
+  </section>
+</form>
+<script>
+(function () {
+  var sections = ['s1', 's2', 's3'], cur = 0;
+  var form = document.getElementById('survey');
+  function show(i) {
+    sections.forEach(function (id, ix) { document.getElementById(id).hidden = ix !== i; });
+    cur = i;
+  }
+  function missing(sec) {
+    var bad = [];
+    var seen = {};
+    sec.querySelectorAll('[required]').forEach(function (el) {
+      if (el.type === 'radio') {
+        if (seen[el.name]) return; seen[el.name] = 1;
+        if (!sec.querySelector('input[name="' + el.name + '"]:checked')) bad.push(el.name);
+      } else if (!el.value) bad.push(el.name || el.id);
+    });
+    if (sec.querySelector('input[name="modes"]') && !sec.querySelector('input[name="modes"]:checked')) bad.push('modes');
+    return bad;
+  }
+  function next(i) {
+    return function () {
+      var sec = document.getElementById(sections[i]);
+      var err = sec.querySelector('.error');
+      var bad = missing(sec);
+      if (bad.length) { err.textContent = 'Please answer all required questions: ' + bad.join(', '); err.hidden = false; return; }
+      err.hidden = true; show(i + 1);
+    };
+  }
+  document.getElementById('next1').addEventListener('click', next(0));
+  document.getElementById('next2').addEventListener('click', next(1));
+  document.getElementById('back2').addEventListener('click', function () { show(0); });
+  document.getElementById('back3').addEventListener('click', function () { show(1); });
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var sec = document.getElementById('s3'), err = sec.querySelector('.error'), bad = missing(sec);
+    if (bad.length) { err.textContent = 'Please answer all required questions: ' + bad.join(', '); err.hidden = false; return; }
+    window.__submitted = new FormData(form);
+    form.hidden = true; document.getElementById('thanks').hidden = false;
+  });
+})();
+</script>
+</body>
+</html>

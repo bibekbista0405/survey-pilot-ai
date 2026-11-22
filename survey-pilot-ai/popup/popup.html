@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <title>SurveyPilot AI</title>
+  <link rel="stylesheet" href="../assets/theme.css">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="wrap">
+    <div class="row">
+      <img src="../assets/icon-32.png" width="24" height="24" alt="">
+      <strong>SurveyPilot AI</strong>
+    </div>
+    <div id="status" class="card stack" aria-live="polite">
+      <div class="skeleton" style="width:70%"></div>
+      <div class="skeleton"></div>
+    </div>
+    <button class="btn primary" id="open-panel">Open side panel</button>
+    <div class="row">
+      <button class="btn grow" id="open-settings">Settings</button>
+    </div>
+    <div class="small muted">Synthetic data only. Use on forms you own or may test.</div>
+  </div>
+  <script src="../core/util.js"></script>
+  <script src="../core/survey-parser.js"></script>
+  <script src="../core/storage.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Intro Survey (test form)</title><style>[hidden]{display:none}</style></head>
+<body>
+<h1>Intro Survey</h1>
+<div id="thanks" class="thank-you" hidden>Your response has been recorded.<a href="#" id="again">Submit another response</a></div>
+<form id="f" novalidate>
+  <section id="s1"><h2>Welcome</h2><p>I kindly request you to take a few minutes to participate in this survey.</p>
+    <p>bibek@example.com <a href="#">Switch account</a></p>
+    <button type="button" id="n1">Next</button></section>
+  <section id="s2" hidden><h2>Questions</h2>
+    <div><label for="nm">Your name *</label><input id="nm" name="nm" required></div>
+    <fieldset><legend>How do you travel? *</legend><label><input type="radio" name="t" value="bus" required> Bus</label><label><input type="radio" name="t" value="car"> Car</label></fieldset>
+    <div><label for="opt">Optional comment</label><input id="opt" name="opt"></div>
+    <p class="error" role="alert" hidden></p>
+    <button type="submit">Submit</button></section>
+</form>
+<script>
+document.getElementById('n1').onclick = function () { s1.hidden = true; s2.hidden = false; };
+document.getElementById('f').addEventListener('submit', function (e) {
+  e.preventDefault();
+  var bad = !nm.value || !document.querySelector('input[name=t]:checked');
+  if (bad) { var er = document.querySelector('.error'); er.textContent = 'Please answer all required questions'; er.hidden = false; return; }
+  window.__submitted = new FormData(f); f.hidden = true; thanks.hidden = false;
+});
+</script></body></html>

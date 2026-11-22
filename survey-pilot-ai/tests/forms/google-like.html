@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Rider Survey (Google-Forms-like fixture) - Google Forms</title>
+<style>[hidden]{display:none}</style>
+</head>
+<body>
+<!-- Mimics the ARIA structure used by Google Forms. It is a fixture, NOT the real Google Forms DOM. -->
+<div role="heading" aria-level="1">Rider Survey</div>
+<form action="https://docs.google.com/forms/d/e/TESTFORM/formResponse" id="gf" novalidate>
+  <div id="page1">
+    <div role="list">
+      <div role="listitem" data-params="%.@.[1001,&quot;How often do you use the bus?&quot;]">
+        <div role="heading"><span>How often do you use the bus?</span><span aria-label="Required question"> *</span></div>
+        <input type="hidden" name="entry.1001">
+        <div role="radiogroup" aria-label="How often do you use the bus?">
+          <div role="radio" data-value="Never" aria-label="Never" aria-checked="false" tabindex="0"></div>
+          <div role="radio" data-value="Weekly" aria-label="Weekly" aria-checked="false" tabindex="0"></div>
+          <div role="radio" data-value="Daily" aria-label="Daily" aria-checked="false" tabindex="0"></div>
+        </div>
+      </div>
+      <div role="listitem" data-params="%.@.[1002,&quot;Which modes do you use?&quot;]">
+        <div role="heading"><span>Which modes do you use?</span></div>
+        <input type="hidden" name="entry.1002_sentinel">
+        <div role="group">
+          <div role="checkbox" data-answer-value="Bus" aria-label="Bus" aria-checked="false" tabindex="0"></div>
+          <div role="checkbox" data-answer-value="Car" aria-label="Car" aria-checked="false" tabindex="0"></div>
+          <div role="checkbox" data-answer-value="Bike" aria-label="Bike" aria-checked="false" tabindex="0"></div>
+        </div>
+      </div>
+      <div role="listitem" data-params="%.@.[1003,&quot;Home area&quot;]">
+        <div role="heading"><span>Home area</span><span aria-label="Required question"> *</span></div>
+        <div role="listbox" id="area-lb" aria-label="Home area">
+          <div role="option" data-value="" aria-selected="true"><span>Choose</span></div>
+          <div role="option" data-value="Urban" aria-selected="false"><span>Urban</span></div>
+          <div role="option" data-value="Suburban" aria-selected="false"><span>Suburban</span></div>
+          <div role="option" data-value="Rural" aria-selected="false"><span>Rural</span></div>
+        </div>
+      </div>
+      <div role="listitem" data-params="%.@.[1004,&quot;Rate the service&quot;]">
+        <div role="heading"><span>Rate the service</span><span aria-label="Required question"> *</span></div>
+        <div role="radiogroup" aria-label="Rate the service">
+          <div role="radio" data-value="1" aria-label="1" aria-checked="false"></div>
+          <div role="radio" data-value="2" aria-label="2" aria-checked="false"></div>
+          <div role="radio" data-value="3" aria-label="3" aria-checked="false"></div>
+          <div role="radio" data-value="4" aria-label="4" aria-checked="false"></div>
+          <div role="radio" data-value="5" aria-label="5" aria-checked="false"></div>
+        </div>
+      </div>
+    </div>
+    <p>Page 1 of 2</p>
+    <div role="alert" id="err1" hidden></div>
+    <div role="button" id="gf-next" tabindex="0"><span>Next</span></div>
+  </div>
+
+  <div id="page2" hidden>
+    <div role="list">
+      <div role="listitem" data-params="%.@.[1005,&quot;Tell us your name&quot;]">
+        <div role="heading"><span>Tell us your name</span><span aria-label="Required question"> *</span></div>
+        <input type="text" name="entry.1005" aria-label="Tell us your name" aria-required="true">
+      </div>
+      <div role="listitem" data-params="%.@.[1006,&quot;Any suggestions?&quot;]">
+        <div role="heading"><span>Any suggestions?</span></div>
+        <textarea name="entry.1006" aria-label="Any suggestions?"></textarea>
+      </div>
+      <div role="listitem" data-params="%.@.[1007,&quot;Usual departure time&quot;]">
+        <div role="heading"><span>Usual departure time</span></div>
+        <input type="text" aria-label="Hour"><input type="text" aria-label="Minute">
+      </div>
+    </div>
+    <p>Page 2 of 2</p>
+    <div role="alert" id="err2" hidden></div>
+    <div role="button" id="gf-back" tabindex="0"><span>Back</span></div>
+    <div role="button" id="gf-submit" tabindex="0"><span>Submit</span></div>
+  </div>
+</form>
+<div id="done" hidden>Your response has been recorded.</div>
+<script>
+(function () {
+  function checked(el) { return el.getAttribute('aria-checked') === 'true'; }
+  document.querySelectorAll('[role=radio]').forEach(function (r) {
+    r.addEventListener('click', function () {
+      var g = r.closest('[role=radiogroup]');
+      g.querySelectorAll('[role=radio]').forEach(function (o) { o.setAttribute('aria-checked', o === r ? 'true' : 'false'); });
+    });
+  });
+  document.querySelectorAll('[role=checkbox]').forEach(function (c) {
+    c.addEventListener('click', function () { c.setAttribute('aria-checked', checked(c) ? 'false' : 'true'); });
+  });
+  var lb = document.getElementById('area-lb');
+  lb.querySelectorAll('[role=option]').forEach(function (o) {
+    o.addEventListener('click', function (e) {
+      e.stopPropagation();
+      lb.querySelectorAll('[role=option]').forEach(function (x) { x.setAttribute('aria-selected', x === o ? 'true' : 'false'); });
+    });
+  });
+  function req(page) {
+    var bad = 0;
+    page.querySelectorAll('[role=listitem]').forEach(function (li) {
+      if (!li.querySelector('[aria-label="Required question"]')) return;
+      var ok = !!li.querySelector('[role=radio][aria-checked=true]') || !!li.querySelector('[role=checkbox][aria-checked=true]') ||
+        !!li.querySelector('[role=option][aria-selected=true]:not([data-value=""])') ||
+        (li.querySelector('input[type=text]') && li.querySelector('input[type=text]').value);
+      if (!ok) bad++;
+    });
+    return bad;
+  }
+  document.getElementById('gf-next').addEventListener('click', function () {
+    var p1 = document.getElementById('page1'), e = document.getElementById('err1');
+    var bad = req(p1);
+    if (bad) { e.textContent = 'This is a required question'; e.hidden = false; return; }
+    p1.hidden = true; document.getElementById('page2').hidden = false;
+  });
+  document.getElementById('gf-back').addEventListener('click', function () {
+    document.getElementById('page2').hidden = true; document.getElementById('page1').hidden = false;
+  });
+  document.getElementById('gf-submit').addEventListener('click', function () {
+    var p2 = document.getElementById('page2'), e = document.getElementById('err2');
+    if (req(p2)) { e.textContent = 'This is a required question'; e.hidden = false; return; }
+    window.__submitted = true;
+    document.getElementById('gf').hidden = true; document.getElementById('done').hidden = false;
+  });
+})();
+</script>
+</body>
+</html>
