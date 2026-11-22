@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>SurveyPilot AI — Test Form (Multi-section)</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 720px; margin: 40px auto; padding: 0 16px; color: #1a2233; background: #f6f7fb; }
+    h1 { font-size: 22px; }
+    form { background: #fff; border-radius: 12px; padding: 24px; border: 1px solid #e3e7f1; }
+    fieldset { display: none; border: 1px solid #e3e7f1; border-radius: 8px; padding: 14px; margin-bottom: 12px; }
+    fieldset.active { display: block; }
+    legend { font-weight: 600; padding: 0 6px; }
+    .field { margin-bottom: 14px; }
+    label { display: block; font-weight: 500; margin-bottom: 4px; }
+    input[type="text"], input[type="email"], input[type="date"], input[type="time"], textarea, select {
+      width: 100%; padding: 7px 10px; border: 1px solid #c9d0e1; border-radius: 6px; font-size: 14px; box-sizing: border-box;
+    }
+    .chk { display: flex; align-items: center; gap: 6px; margin: 4px 0; }
+    .req { color: #e8503a; }
+    .actions { display: flex; gap: 8px; margin-top: 12px; }
+    button { background: #4f6ef7; color: #fff; border: none; padding: 8px 16px; border-radius: 6px; font-size: 14px; cursor: pointer; }
+    button.secondary { background: #f1f3f9; color: #1a2233; border: 1px solid #c9d0e1; }
+    button:disabled { opacity: 0.4; cursor: not-allowed; }
+    .progress { font-size: 12px; color: #6b7488; margin-bottom: 12px; }
+    .error { color: #e8503a; font-size: 12px; margin-top: 4px; display: none; }
+    .error.show { display: block; }
+  </style>
+</head>
+<body>
+  <h1>SurveyPilot AI Test Form</h1>
+  <p class="progress">Section <span id="curSection">1</span> of 3</p>
+  <form id="testForm">
+    <fieldset class="active" data-section="1">
+      <legend>Section 1: About you</legend>
+      <div class="field">
+        <label for="q_name">What is your name? <span class="req">*</span></label>
+        <input type="text" id="q_name" name="name" required />
+        <div class="error" data-for="q_name">This question is required.</div>
+      </div>
+      <div class="field">
+        <label for="q_email">What is your email address?</label>
+        <input type="email" id="q_email" name="email" />
+      </div>
+      <div class="field">
+        <label>What is your age range? <span class="req">*</span></label>
+        <div class="chk"><input type="radio" id="age_1" name="age" value="18-24" required /><label for="age_1">18-24</label></div>
+        <div class="chk"><input type="radio" id="age_2" name="age" value="25-34" /><label for="age_2">25-34</label></div>
+        <div class="chk"><input type="radio" id="age_3" name="age" value="35-44" /><label for="age_3">35-44</label></div>
+        <div class="chk"><input type="radio" id="age_4" name="age" value="45-54" /><label for="age_4">45-54</label></div>
+        <div class="chk"><input type="radio" id="age_5" name="age" value="55+" /><label for="age_5">55+</label></div>
+        <div class="error" data-for="age">Please select an age range.</div>
+      </div>
+      <div class="actions">
+        <button type="button" class="secondary" id="prev1" disabled>Back</button>
+        <button type="button" id="next1">Next</button>
+      </div>
+    </fieldset>
+
+    <fieldset data-section="2">
+      <legend>Section 2: Travel habits</legend>
+      <div class="field">
+        <label>How often do you use public transit?</label>
+        <div class="chk"><input type="radio" id="bus_1" name="bus" value="Daily" /><label for="bus_1">Daily</label></div>
+        <div class="chk"><input type="radio" id="bus_2" name="bus" value="Weekly" /><label for="bus_2">Weekly</label></div>
+        <div class="chk"><input type="radio" id="bus_3" name="bus" value="Monthly" /><label for="bus_3">Monthly</label></div>
+        <div class="chk"><input type="radio" id="bus_4" name="bus" value="Rarely" /><label for="bus_4">Rarely</label></div>
+        <div class="chk"><input type="radio" id="bus_5" name="bus" value="Never" /><label for="bus_5">Never</label></div>
+      </div>
+      <div class="field">
+        <label>Which transport modes do you use regularly? (select all that apply)</label>
+        <div class="chk"><input type="checkbox" id="m_walk" name="modes" value="Walking" /><label for="m_walk">Walking</label></div>
+        <div class="chk"><input type="checkbox" id="m_bike" name="modes" value="Bike" /><label for="m_bike">Bike</label></div>
+        <div class="chk"><input type="checkbox" id="m_car" name="modes" value="Car" /><label for="m_car">Car</label></div>
+        <div class="chk"><input type="checkbox" id="m_bus" name="modes" value="Bus" /><label for="m_bus">Bus</label></div>
+        <div class="chk"><input type="checkbox" id="m_train" name="modes" value="Train" /><label for="m_train">Train</label></div>
+      </div>
+      <div class="field">
+        <label for="q_when">When was your last trip?</label>
+        <input type="date" id="q_when" name="last_trip" />
+      </div>
+      <div class="field">
+        <label for="q_time">What time do you usually commute?</label>
+        <input type="time" id="q_time" name="commute_time" />
+      </div>
+      <div class="actions">
+        <button type="button" class="secondary" id="prev2">Back</button>
+        <button type="button" id="next2">Next</button>
+      </div>
+    </fieldset>
+
+    <fieldset data-section="3">
+      <legend>Section 3: Feedback</legend>
+      <div class="field">
+        <label for="q_rating">How satisfied are you with public transit? (1-5)</label>
+        <div class="chk">
+          <input type="radio" id="r1" name="rating" value="1" /><label for="r1">1</label>
+          <input type="radio" id="r2" name="rating" value="2" /><label for="r2">2</label>
+          <input type="radio" id="r3" name="rating" value="3" /><label for="r3">3</label>
+          <input type="radio" id="r4" name="rating" value="4" /><label for="r4">4</label>
+          <input type="radio" id="r5" name="rating" value="5" /><label for="r5">5</label>
+        </div>
+      </div>
+      <div class="field">
+        <label for="q_dropdown">Preferred contact method</label>
+        <select id="q_dropdown" name="contact">
+          <option value="">(select)</option>
+          <option value="Email">Email</option>
+          <option value="Phone">Phone</option>
+          <option value="SMS">SMS</option>
+          <option value="None">No contact</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="q_para">Additional comments</label>
+        <textarea id="q_para" name="comments" rows="4" maxlength="500"></textarea>
+      </div>
+      <div class="actions">
+        <button type="button" class="secondary" id="prev3">Back</button>
+        <button type="submit" id="submitBtn">Submit</button>
+      </div>
+    </fieldset>
+  </form>
+  <div id="confirmation" style="display:none;background:#e7f8f1;border:1px solid #1bbf83;border-radius:8px;padding:14px;margin-top:14px;color:#0f6f4f">Thank you! Your response has been recorded.</div>
+
+  <script>
+    // Simple multi-section navigation for testing
+    const sections = document.querySelectorAll('fieldset');
+    let current = 0;
+    function showSection(i) {
+      sections.forEach((s, idx) => s.classList.toggle('active', idx === i));
+      document.getElementById('curSection').textContent = (i + 1);
+    }
+    function validateSection(i) {
+      const errs = [];
+      const sec = sections[i];
+      // Required text inputs
+      sec.querySelectorAll('input[required]').forEach((el) => {
+        const errEl = sec.querySelector('.error[data-for="' + el.id + '"]');
+        if (!el.value.trim()) {
+          errEl && errEl.classList.add('show');
+          errs.push(el.id);
+        } else {
+          errEl && errEl.classList.remove('show');
+        }
+      });
+      // Required radios by name
+      const requiredRadios = Array.from(sec.querySelectorAll('input[type="radio"][required]')).map((r) => r.name);
+      const uniqueRadios = Array.from(new Set(requiredRadios));
+      uniqueRadios.forEach((name) => {
+        const checked = sec.querySelector('input[type="radio"][name="' + name + '"]:checked');
+        const errEl = sec.querySelector('.error[data-for="' + name + '"]');
+        if (!checked) { errEl && errEl.classList.add('show'); errs.push(name); }
+        else { errEl && errEl.classList.remove('show'); }
+      });
+      return errs.length === 0;
+    }
+    function next() {
+      if (!validateSection(current)) return;
+      if (current < sections.length - 1) { current++; showSection(current); }
+    }
+    function prev() {
+      if (current > 0) { current--; showSection(current); }
+    }
+    document.getElementById('next1').addEventListener('click', next);
+    document.getElementById('next2').addEventListener('click', next);
+    document.getElementById('prev2').addEventListener('click', prev);
+    document.getElementById('prev3').addEventListener('click', prev);
+    document.getElementById('testForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (!validateSection(current)) return;
+      document.getElementById('testForm').style.display = 'none';
+      document.getElementById('confirmation').style.display = 'block';
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+{
+  "manifest_version": 3,
+  "name": "SurveyPilot AI",
+  "version": "1.0.0",
+  "description": "AI-powered survey testing and synthetic respondent simulator. Read surveys, generate unique synthetic respondents, fill forms, validate answers, navigate multi-page forms, and track test runs.",
+  "permissions": [
+    "sidePanel",
+    "storage",
+    "tabs",
+    "activeTab",
+    "scripting",
+    "notifications",
+    "downloads"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background/service-worker.js"
+  },
+  "side_panel": {
+    "default_path": "sidepanel/sidepanel.html"
+  },
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "SurveyPilot AI",
+    "default_icon": {
+      "16": "assets/icon16.png",
+      "32": "assets/icon32.png",
+      "48": "assets/icon48.png",
+      "128": "assets/icon128.png"
+    }
+  },
+  "options_page": "options/options.html",
+  "icons": {
+    "16": "assets/icon16.png",
+    "32": "assets/icon32.png",
+    "48": "assets/icon48.png",
+    "128": "assets/icon128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": [
+        "core/storage.js",
+        "core/survey-parser.js",
+        "core/respondent-generator.js",
+        "core/answer-generator.js",
+        "core/statistics.js",
+        "core/export.js",
+        "content/form-detector.js",
+        "content/form-reader.js",
+        "content/form-filler.js",
+        "content/form-navigation.js",
+        "content/validation.js"
+      ],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "assets/*",
+        "tests/test-form-multi-section.html",
+        "tests/test-form-single-section.html"
+      ],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}

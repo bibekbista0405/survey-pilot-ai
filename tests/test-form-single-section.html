@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>SurveyPilot AI — Test Form (Single section)</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 40px auto; padding: 0 16px; color: #1a2233; background: #f6f7fb; }
+    form { background: #fff; border-radius: 12px; padding: 24px; border: 1px solid #e3e7f1; }
+    .field { margin-bottom: 14px; }
+    label { display: block; font-weight: 500; margin-bottom: 4px; }
+    input[type="text"], textarea { width: 100%; padding: 7px 10px; border: 1px solid #c9d0e1; border-radius: 6px; font-size: 14px; box-sizing: border-box; }
+    .chk { display: flex; align-items: center; gap: 6px; margin: 4px 0; }
+    button { background: #4f6ef7; color: #fff; border: none; padding: 8px 16px; border-radius: 6px; font-size: 14px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <form id="simpleForm">
+    <h2>Quick feedback form</h2>
+    <div class="field">
+      <label for="s_name">Your name</label>
+      <input type="text" id="s_name" name="s_name" />
+    </div>
+    <div class="field">
+      <label>How did you hear about us?</label>
+      <div class="chk"><input type="radio" id="h1" name="hear" value="Friend" /><label for="h1">Friend</label></div>
+      <div class="chk"><input type="radio" id="h2" name="hear" value="Search" /><label for="h2">Search</label></div>
+      <div class="chk"><input type="radio" id="h3" name="hear" value="Ad" /><label for="h3">Ad</label></div>
+    </div>
+    <div class="field">
+      <label>Comments</label>
+      <textarea id="s_comments" name="comments" rows="3"></textarea>
+    </div>
+    <button type="submit">Submit</button>
+  </form>
+</body>
+</html>

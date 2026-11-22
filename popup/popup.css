@@ -1,0 +1,65 @@
+:root {
+  --bg: #f6f7fb;
+  --surface: #ffffff;
+  --surface-2: #f1f3f9;
+  --border: #e3e7f1;
+  --border-strong: #c9d0e1;
+  --text: #1a2233;
+  --text-muted: #6b7488;
+  --primary: #4f6ef7;
+  --primary-hover: #3d59e0;
+  --accent: #7c5cff;
+  --radius-sm: 8px;
+}
+[data-theme="dark"] {
+  --bg: #0e1118;
+  --surface: #161a24;
+  --surface-2: #1d2330;
+  --border: #2a3142;
+  --border-strong: #3a4256;
+  --text: #e9edf6;
+  --text-muted: #97a0b5;
+  --primary: #5d7bff;
+  --primary-hover: #7287ff;
+  --accent: #9c7cff;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  width: 260px;
+  font-size: 13px;
+}
+.popup { display: flex; flex-direction: column; }
+.popup-head {
+  padding: 12px 14px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+.brand { display: flex; align-items: center; gap: 8px; }
+.brand-logo {
+  width: 28px; height: 28px;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 2px 8px rgba(79, 110, 247, 0.3);
+}
+.brand-title { font-weight: 600; font-size: 13px; }
+.brand-sub { font-size: 10px; color: var(--text-muted); }
+.popup-body { padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+.hint { color: var(--text-muted); font-size: 11px; margin: 0; line-height: 1.5; }
+.btn {
+  background: var(--surface); color: var(--text);
+  border: 1px solid var(--border-strong);
+  padding: 10px 14px; border-radius: var(--radius-sm);
+  font-size: 13px; font-weight: 600;
+  cursor: pointer; transition: all 0.15s ease;
+  font-family: inherit;
+}
+.btn:hover { background: var(--surface-2); }
+.btn.primary { background: var(--primary); color: #fff; border-color: var(--primary); }
+.btn.primary:hover { background: var(--primary-hover); }
+.btn.block { width: 100%; text-align: center; }
